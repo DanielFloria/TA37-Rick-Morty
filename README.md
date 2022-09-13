@@ -1,3 +1,3 @@
 # TA37RickMorty
 
-Deploy:
+Deploy: https://master.d19jemh0ek19bl.amplifyapp.com/
