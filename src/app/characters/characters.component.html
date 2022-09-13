@@ -1,0 +1,14 @@
+<p>characters works!</p>
+
+<div class="container" *ngIf="characters!=null; else espera">
+  <div *ngFor="let character of characters">
+    <div class="card">
+      <img src="{{character.image}}" alt="">
+      <h4>{{character.name}}</h4>
+      <button class="btn btn-primary">See more</button>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #espera>Esperando datos...</ng-template>
