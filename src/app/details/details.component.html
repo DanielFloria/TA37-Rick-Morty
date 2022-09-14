@@ -1,0 +1,11 @@
+<div class="container" *ngIf="character!=null; else espera">
+  <div class="card">
+    <img src="{{character.image}}" alt="">
+    <h4><b>Name: </b>{{character.name}}</h4>
+    <h4><b>Status: </b>{{character.status}}</h4>
+    <h4><b>Gender: </b>{{character.gender}}</h4>
+    <h4><b>Location: </b>{{character.location.name}}</h4>
+  </div>
+</div>
+
+<ng-template #espera>Esperando datos...</ng-template>

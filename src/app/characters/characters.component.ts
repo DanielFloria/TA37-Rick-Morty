@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { ListService } from '../list.service';
 
 @Component({
   selector: 'app-characters',
@@ -10,13 +10,11 @@ export class CharactersComponent implements OnInit {
 
   characters: any = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private listService: ListService ) {}
 
   ngOnInit() {
-    this.http
-    .get('https://rickandmortyapi.com/api/character/1,2,3,4,5,6,7,8')
-    .subscribe(
-      result => {
+    this.listService
+    .retornar().subscribe(result => {
         this.characters = result;
       },
       error => {
