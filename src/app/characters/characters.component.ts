@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ListService } from '../list.service';
+import { Character } from '../models/character.model';
 
 @Component({
   selector: 'app-characters',
@@ -8,19 +9,68 @@ import { ListService } from '../list.service';
 })
 export class CharactersComponent implements OnInit {
 
-  characters: any = null;
+  characters?: Character[];
+  currentCharacter: Character = {};
+  currentIndex = -1;
+  name = '';
 
   constructor(private listService: ListService ) {}
 
-  ngOnInit() {
-    this.listService
-    .retornar().subscribe(result => {
-        this.characters = result;
-      },
-      error => {
-        console.log('No funciona');
-      }
-    );
+  ngOnInit(): void {
+    this.retrieveCharacters();
+  }
+
+  retrieveCharacters(): void {
+    this.listService.retornar()
+      .subscribe(
+        data => {
+          this.characters = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
+  refreshList(): void {
+    this.retrieveCharacters();
+    this.currentCharacter = {};
+    this.currentIndex = -1;
+  }
+
+  setActiveCharacter(character: Character, index: number): void {
+    this.currentCharacter = character;
+    this.currentIndex = index;
+  }
+
+  removeAllCharacters(): void {
+    this.listService.deleteAll()
+      .subscribe(
+        response => {
+          console.log(response);
+          this.refreshList();
+        },
+        error => {
+          console.log(error);
+        }
+      );
+  }
+
+  searchName(): void {
+    this.currentCharacter = {};
+    this.currentIndex = -1;
+
+    this.listService.findByName(this.name)
+      .subscribe(
+        data => {
+          this.characters = data;
+          console.log(data);
+        },
+        error => {
+          console.log(error);
+        }
+      );
   }
 
 }
