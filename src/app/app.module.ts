@@ -8,6 +8,8 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailsComponent } from './details/details.component';
+import { AddCharacterComponent } from './add-character/add-character.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -15,12 +17,14 @@ import { DetailsComponent } from './details/details.component';
     CharactersComponent,
     AboutComponent,
     HomeComponent,
-    DetailsComponent
+    DetailsComponent,
+    AddCharacterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

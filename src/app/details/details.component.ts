@@ -1,6 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { Character } from '../models/character.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router} from '@angular/router';
+import { ListService } from '../list.service';
 
 
 @Component({
@@ -10,19 +11,52 @@ import { ActivatedRoute} from '@angular/router';
 })
 export class DetailsComponent implements OnInit {
 
-  character: any;
-  id: any;
+  character: Character = {
+    name: '',
+    status: '',
+    species: '',
+    gender: '',
+    origin: '',
+    image: ''
+  };
+  id: any = [];
+  message = '';
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {
-    this.id = this.route.snapshot.paramMap.get('id');
+  constructor(private listService: ListService, private activatedRoute: ActivatedRoute, private router: Router) {
+    this.id = parseInt(this.activatedRoute.snapshot.paramMap.get('id') || ('[]'));
   }
 
   ngOnInit(): void {
-    this.http
-      .get('https://rickandmortyapi.com/api/character/' + this.id)
+    this.listService
+      .get(this.id)
       .subscribe(
         result => {
           this.character = result;
+        }
+      );
+  }
+
+  updateCharacter(): void {
+    this.message = '';
+    this.listService.update(this.id, this.character)
+      .subscribe(
+        response => {
+          this.message = response.message?response.message:"Message updated";
+        },
+        error => {
+          console.log(error);
+        }
+      )
+  }
+
+  deleteCharacter(): void {
+    this.listService.delete(this.id)
+      .subscribe(
+        response => {
+          this.router.navigate(['/characters']);
+        },
+        error => {
+          console.log(error);
         }
       )
   }

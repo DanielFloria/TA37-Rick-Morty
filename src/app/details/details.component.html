@@ -1,11 +1,30 @@
-<div class="container" *ngIf="character!=null; else espera">
-  <div class="card">
-    <img src="{{character.image}}" alt="">
-    <h4><b>Name: </b>{{character.name}}</h4>
-    <h4><b>Status: </b>{{character.status}}</h4>
-    <h4><b>Gender: </b>{{character.gender}}</h4>
-    <h4><b>Location: </b>{{character.location.name}}</h4>
-  </div>
+<div class="container">
+  <form>
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" class="form-group" id="name" required [(ngModel)]="character.name" name="name">
+    </div>
+    <div class="form-group">
+      <label for="status">Status</label>
+      <input type="text" class="form-group" id="status" required [(ngModel)]="character.status" name="status">
+    </div>
+    <div class="form-group">
+      <label for="species">Species</label>
+      <input type="text" class="form-group" id="species" required [(ngModel)]="character.species" name="species">
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <input type="text" class="form-group" id="gender" required [(ngModel)]="character.gender" name="gender">
+    </div>
+    <div class="form-group">
+      <label for="origin">Origin</label>
+      <input type="text" class="form-group" id="origin" required [(ngModel)]="character.origin" name="origin">
+    </div>
+    <div class="form-group">
+      <label for="image">Image</label>
+      <input type="text" class="form-group" id="image" required [(ngModel)]="character.image" name="image">
+    </div>
+  </form>
+  <button class="bg-danger" (click)="deleteCharacter()">Delete</button>
+  <button type="submit" class="bg-success" (click)="updateCharacter()">Update</button>
 </div>
-
-<ng-template #espera>Esperando datos...</ng-template>
