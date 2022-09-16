@@ -5,8 +5,13 @@ import { AddCharacterComponent } from './add-character/add-character.component';
 import { CharactersComponent } from './characters/characters.component';
 import { DetailsComponent } from './details/details.component';
 import { HomeComponent } from './home/home.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent
+  },
   {
     path: 'home',
     component: HomeComponent

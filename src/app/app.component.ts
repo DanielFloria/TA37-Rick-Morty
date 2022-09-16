@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Character } from './models/character.model';
 import { ListService } from './list.service';
+import { TokenStorageService } from './_services/token-storage.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,36 @@ export class AppComponent {
   currentIndex = -1;
   name = '';
 
-  constructor(private listService: ListService) {}
+  private roles: string[] = [];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username?: string;
+
+
+  constructor(private tokenStorageService: TokenStorageService, private listService: ListService) {}
+
+  ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+    if(this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+
+      this.username = user.username;
+    }
+  }
+
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
+  }
+
+
+
 
   searchCharacter(): void {
     this.currentCharacter = {};

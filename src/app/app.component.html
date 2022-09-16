@@ -20,6 +20,16 @@
             <a class="nav-link" routerLink="about/">About</a>
           </li>
         </ul>
+        <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+          <li class="nav-item">
+            <a href="/login" class="nav-link" routerLink="login">Login</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+          <li class="nav-item">
+            <a href class="nav-link" (click)="logout()">Logout</a>
+          </li>
+        </ul>
         <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success bg-dark" type="submit">Search</button>
@@ -28,5 +38,7 @@
     </div>
   </nav>
 </div>
+
+<app-login></app-login>
 
 <router-outlet></router-outlet>
